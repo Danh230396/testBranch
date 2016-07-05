@@ -21,6 +21,8 @@ Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::group(['prefix' => 'category'], function () {
-	    Route::group('getAdd', ['uses' => 'CategoryController@getAdd']);
+	    Route::get('getList', ['uses' => 'CategoryController@getList']);
+	    Route::get('getAdd', ['uses' => 'CategoryController@getAdd']);
+	    Route::post('postAdd', ['uses' => 'CategoryController@postAdd']);
 	});
 });
