@@ -25,4 +25,10 @@ Route::group(['prefix' => 'admin'], function () {
 	    Route::get('getAdd', ['uses' => 'CategoryController@getAdd']);
 	    Route::post('postAdd', ['uses' => 'CategoryController@postAdd']);
 	});
+	Route::group(['prefix' => 'product'], function () {
+	    Route::get('getList', ['as' => 'getListProduct', 'uses' => 'ProductController@getList']);
+	    Route::get('getAdd', ['as' => 'getAddProduct', 'uses' => 'ProductController@getAdd']);
+	    Route::post('postAdd', ['as' => 'postAddProduct', 'uses' => 'ProductController@postAdd']);
+	});
 });
+
