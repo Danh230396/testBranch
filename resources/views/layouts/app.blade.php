@@ -17,7 +17,7 @@
 		<link href="{!! asset('public/themes/css/main.css') !!}" rel="stylesheet"/>
 
 		<!-- scripts -->
-		<script src="{!! asset('public/themes/js/jquery-1.7.2.min.js') !!}"></script>
+		<script src="{!! asset('public/themes/js/jquery-1.7.2.min.js') !!}" type="javascript/text"></script>
 		<script src="{!! asset('public/bootstrap/js/bootstrap.min.js') !!}"></script>				
 		<script src="{!! asset('public/themes/js/superfish.js') !!}"></script>	
 		<script src="{!! asset('public/themes/js/jquery.scrolltotop.js') !!}"></script>
