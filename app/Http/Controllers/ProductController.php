@@ -9,7 +9,7 @@ use App\Http\Requests\ProductRequest;
 use App\Product;
 // use App\Category;
 use App\Image;
-// use File;
+use File;
 
 class ProductController extends Controller
 {
@@ -63,45 +63,46 @@ class ProductController extends Controller
                 }
             }
         }
-       // return redirect()->route('admin.products.list')->with(['flash_message' => 'Success!', 'flash_level' => 'success']);
+       return redirect()->route('getListProduct')->with(['flash_message' => 'Success!', 'flash_level' => 'success']);
     }
     
-    // #function thuc hien show list product ra ngoai
-    // function getList(){
-    //     $products = Product::select("id","name","cate_id","price","created_at")->orderBy('created_at', 'DESC')->get();
-    //     return view('admin.product.list', compact('products',$products));
-    // }
+    #function thuc hien show list product ra ngoai
+    function getList(){
+        $products = Product::select("id","name","cate_id","price", 'saleprice',"created_at")->orderBy('created_at', 'DESC')->get();
+        return view('admin.product.list', compact('products',$products));
+    }
     
-    // #function thuc hien xoa san pham cua no va tat ca cac hinh anh thuoc ve no
-    // function getDelete($id){
-    //     $images = Product::find($id)->getImages;
-    //     foreach ($images as $value) {
-    //         File::delete('resources/upload/images/products/'.$value->image);
-    //     }
-    //     $product = Product::find($id);
-    //     $product->delete();
-    //     File::delete('resources/upload/images/products/'.$product->image);
-    //     echo 'Thanh cong';
-    // }
+    #function thuc hien xoa san pham cua no va tat ca cac hinh anh thuoc ve no
+    function deleteProduct($id){
+        $images = Product::find($id)->getImages;
+        foreach ($images as $value) {
+            File::delete($value->path);
+        }
+        $product = Product::find($id);
+        $product->delete();
+        File::delete('resources/upload/images/products/avatar/'.$product->image);
+        return redirect()->route('getListProduct')->with(['flash_message' => 'Success!', 'flash_level' => 'success']);
+    }
 
-    // #function getEdit thuc hien show form cho user nhap data de update
-    // function getEdit($id){
-    //     $product = Product::find($id);
-    //     $cate = Category::select('id', 'name', 'parent_id')->get()->toArray();
-    //     return view('admin.product.edit',compact('cate', 'product'));
-    // }
+    #function getEdit thuc hien show form cho user nhap data de update
+    function getEdit($id){
+        $product = Product::find($id);
+        $productImages = Product::find($id)->getImages;
+        // $cate = Category::select('id', 'name', 'parent_id')->get()->toArray();
+        return view('admin.product.edit',compact('product', 'productImages'));
+    }
 
 
 
 
-    // #function bay se thao tac voi ajax
+    #function bay se thao tac voi ajax
     
-    // function getData(){
-    //     $products = Product::select("id","name","cate_id","price","created_at")->orderBy('created_at', 'DESC')->get()->tojSon();
-    //     return $products;
-    // }
+    function getData(){
+        $products = Product::select("id","name","cate_id","price","created_at")->orderBy('created_at', 'DESC')->get()->tojSon();
+        return $products;
+    }
     
-    // function testAjax(){
-    //     return view("admin.product.ajax");
-    // }
+    function testAjax(){
+        return view("admin.product.ajax");
+    }
 }

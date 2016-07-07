@@ -1,27 +1,33 @@
 
 @extends('admin.master')
-@section('pageHeader', 'Product')
-@section('function', 'list')
+@section('pageHeader', 'Sản phẩm')
+@section('function', 'Danh sách')
 @section('content')
 <!-- /.col-lg-12 -->
+@if (Session::has('flash_message'))
+    <div class="alert alert-{{ Session::get('flash_level') }}">{{ Session::get('flash_message') }}</div>
+@endif
 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
     <thead>
         <tr align="center">
-            <th>ID</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Date</th>
-            <th>Delete</th>
-            <th>Edit</th>
+            <th>STT</th>
+            <th>Tên</th>
+            <th>Giá mua</th>
+            <th>Giá bán</th>
+            <th>Danh mục</th>
+            <th>Ngày</th>
+            <th>Xóa</th>
+            <th>Sửa</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($products AS $product)
+        <?php $i = 0; ?>
+        @foreach($products AS $product) <?php $i++; ?>
         <tr class="odd gradeX" align="center">
-            <td>1</td>
+            <td>{!! $i !!}</td>
             <td>{!! $product->name !!}</td>
             <td>{!! $product->price !!} VNĐ</td>
+            <td>{!! $product->saleprice !!} VNĐ</td>
             <td>
                 <?php
                 $cate = DB::table('categories')->where('id', $product->cate_id)->first();
@@ -29,8 +35,8 @@
                 ?>
             </td>
             <td>20/6/2016</td>
-            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="{!! URL::route('admin.products.delete', $product->id) !!}"> Delete</a></td>
-            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{!! URL::route('admin.products.getEdit', $product->id) !!}">Edit</a></td>
+            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="{!! URL::route('deleteProduct', $product->id) !!}">Xóa</a></td>
+            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{!! URL::route('getEditProduct', $product->id) !!}">Sửa</a></td>
         </tr>
         @endforeach
 

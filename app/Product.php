@@ -24,4 +24,8 @@ class Product extends Model
     
 
     public $timestamps = true;
+
+    public function getimages(){
+        return $this->hasMany('App\Image');
+    }
 }

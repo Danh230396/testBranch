@@ -24,13 +24,13 @@ class ProductRequest extends Request
     public function rules()
     {
         return [
-           'category' => 'required',
-           'txtName' => 'required',
-           'txtPrice' => 'required',
-           'txtIntro' => 'required',
-           'txtContent' => 'required',
-           'fImages' => 'required|image',
-           'fImagesDetail' => 'image',
+           // 'category' => 'required',
+           // 'txtName' => 'required',
+           // 'txtPrice' => 'required',
+           // 'txtIntro' => 'required',
+           // 'txtContent' => 'required',
+           // 'fImages' => 'required|image',
+           // 'fImagesDetail' => 'image',
         ];
     }
 }

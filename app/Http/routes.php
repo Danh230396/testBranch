@@ -29,6 +29,9 @@ Route::group(['prefix' => 'admin'], function () {
 	    Route::get('getList', ['as' => 'getListProduct', 'uses' => 'ProductController@getList']);
 	    Route::get('getAdd', ['as' => 'getAddProduct', 'uses' => 'ProductController@getAdd']);
 	    Route::post('postAdd', ['as' => 'postAddProduct', 'uses' => 'ProductController@postAdd']);
+	    Route::get('getEdit/{id}', ['as' => 'getEditProduct', 'uses' => 'ProductController@getEdit']);
+	    Route::post('postEdit/{id}', ['as' => 'postEditProduct', 'uses' => 'ProductController@postEdit']);
+	    Route::post('delete/{id}', ['as' => 'deleteProduct', 'uses' => 'ProductController@deleteProduct']);
 	});
 });
 
