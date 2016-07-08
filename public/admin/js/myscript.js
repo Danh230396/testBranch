@@ -4,3 +4,25 @@ $(document).ready(function() {
         });
     });
 $("div.alert").delay(3000).slideUp();
+
+$(document).ready(function(){
+	$("span#del_image").click(function(){
+		var url = 'http://localhost/project/admin/image/delete';
+		var _token = $("form[id = 'form_edit']").find("input[name = '_token']").val();
+		var idImage = $(this).parent().find("input[name = 'idImage']").val();
+		$.ajax({
+			url: url,
+			type: 'POST',
+			cache: false,
+			data: {
+				'idImage': idImage,
+				'_token': _token,
+			},
+			success: function(id){
+				$("div." + id).remove();
+				alert('Da Xoa hinh '+id);
+
+			}
+		});
+	});
+});

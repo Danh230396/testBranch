@@ -10,6 +10,7 @@ use App\Product;
 // use App\Category;
 use App\Image;
 use File;
+use App\Helpers\SupportFunction;
 
 class ProductController extends Controller
 {
@@ -62,6 +63,7 @@ class ProductController extends Controller
                     $image->move($destination, $fileName);
                 }
             }
+            
         }
        return redirect()->route('getListProduct')->with(['flash_message' => 'Success!', 'flash_level' => 'success']);
     }
@@ -90,6 +92,50 @@ class ProductController extends Controller
         $productImages = Product::find($id)->getImages;
         // $cate = Category::select('id', 'name', 'parent_id')->get()->toArray();
         return view('admin.product.edit',compact('product', 'productImages'));
+    }
+
+    #function postEdit thu hien xu ly cac du lieu nhap vao cua tu Form
+    function postEdit($id, Request $request){
+    	$product = Product::find($id);
+    	if(!empty($request->file('fImages'))){
+    		$fileName = rand().mt_rand().'.'.$request->file('fImages')->getClientOriginalExtension();
+    		$product->image = $fileName;
+    		 #thuc hien move file vao folder duoc chi dinh truoc
+	        $destination = 'resources/upload/images/products/avatar/';
+	        $request->file('fImages')->move($destination,$fileName);
+	        if(File::exists($request->image_current)){
+	        	File::delete($request->image_current);
+	        }
+    	}
+		$product->name = $request->txtName;
+        $product->slug = SupportFunction::convertStr($request->txtName);
+        $product->price = $request->txtPrice;
+        $product->saleprice = $request->txtSalePrice;
+        //$product->image = $fileName;
+        $product->intro = $request->txtIntro;
+        $product->quantity = $request->txtQuantity;
+        $product->description = $request->description;
+        $product->keywords = $request->txtKeyword;
+        $product->cate_id = $request->category;
+        $product->save();
+        #thuc hien them nhieu anh vao san pham vua moi add
+        if(!empty($request->file('fImagesDetail'))){
+            $images = $request->file('fImagesDetail');
+            foreach($images AS $image){
+                if(isset($image)){
+                    $fileName = rand().mt_rand().rand().mt_rand().'.'.$image->getClientOriginalExtension();
+                    $productImage = new \App\Image();
+                    $destination = 'resources/upload/images/products/details/';
+                    $productImage->name = $fileName;
+                    $productImage->product_id = $id;
+                    $productImage->path = $destination.$fileName;
+                    $productImage->save();
+                    $image->move($destination, $fileName);
+                }
+            }
+            
+        }
+        return redirect()->route('getListProduct')->with(['flash_message' => 'Success!', 'flash_level' => 'success']);
     }
 
 

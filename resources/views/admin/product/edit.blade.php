@@ -13,14 +13,18 @@
 </div>
 @endif
 <!-- /.col-lg-12 -->
-<form action="" method="POST" enctype="multipart/form-data">
+
+<form action="{{ route('postEditProduct', $product->id) }}" method="POST" enctype="multipart/form-data" id="form_edit">
     <div class="col-lg-7" style="padding-bottom:120px">
 
         <input type="hidden" name="_token" value="{!! csrf_token() !!}">
         <div class="form-group">
             <label>Danh mục</label>
             <select class="form-control" name="category">
-                <option value="">Please Choose Category</option>
+                <option value="0">Please Choose Category</option>
+                <option value="1">Áo thun</option>
+                <option value="2">Áo khoắc</option>
+                <option value="2">Áo sơ mi</option>
             </select>
         </div>
         <div class="form-group">
@@ -50,6 +54,7 @@
         <div class="row">
             <div class="col-md-7">
                 <img src="{{ asset('resources/upload/images/products/avatar/'. $product->image) }}" width="200px">
+                <input type="hidden" name="image_current" value="{{ 'resources/upload/images/products/avatar/'. $product->image }}">
             </div>
             <div class="col-md-5">
                 <label>Hình đại diện</label>
@@ -72,12 +77,19 @@
     </div>
     <div class="col-lg-5 data_image">
         @foreach($productImages AS $image)
-            <div class="image">
+            <div class="image {{ $image->id }}">
                 <img src="{{ asset($image->path) }}">
-                <span><i class="fa fa-remove"></i></span>
-                <input type="file" name="imageDetails[]">
+                <input type="hidden" name="idImage" value="{{ $image->id }}">
+                <span id="del_image"><i class="fa fa-remove"></i></span>
+                <input type="file" name="fImagesDetail[]">
             </div>
         @endforeach
+        <input type="file" name="fImagesDetail[]">
+        <input type="file" name="fImagesDetail[]">
+        <input type="file" name="fImagesDetail[]">
+        <input type="file" name="fImagesDetail[]">
     </div>
 </form>
 @endsection
+
+

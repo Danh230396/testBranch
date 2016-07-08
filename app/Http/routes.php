@@ -31,7 +31,11 @@ Route::group(['prefix' => 'admin'], function () {
 	    Route::post('postAdd', ['as' => 'postAddProduct', 'uses' => 'ProductController@postAdd']);
 	    Route::get('getEdit/{id}', ['as' => 'getEditProduct', 'uses' => 'ProductController@getEdit']);
 	    Route::post('postEdit/{id}', ['as' => 'postEditProduct', 'uses' => 'ProductController@postEdit']);
-	    Route::post('delete/{id}', ['as' => 'deleteProduct', 'uses' => 'ProductController@deleteProduct']);
+	    Route::get('delete/{id}', ['as' => 'deleteProduct', 'uses' => 'ProductController@deleteProduct']);
+	});
+	Route::group(['prefix' => 'image'], function(){
+		Route::post('delete', ['as' => 'deleteImage', 'uses' => 'ImageController@postDelete']);
 	});
 });
+
 
