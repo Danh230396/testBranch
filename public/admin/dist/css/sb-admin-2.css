@@ -365,6 +365,7 @@ table.dataTable thead .sorting:after {
     margin: 10px 5px;
     width: 148px;
     float: left;
+    margin-bottom: 20px;
 }
 ._image div.image img{
      width: 100%;
@@ -454,5 +455,7 @@ table.dataTable thead .sorting:after {
     background: #fff;
     margin-left: 0px;
 }
-
+.listImage{
+    margin-top: 15px;
+}
 

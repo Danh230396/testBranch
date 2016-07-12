@@ -30,3 +30,9 @@ document.getElementById("file-2").onchange = function () {
     document.getElementById("uploadFile").value = this.value;
 };
 
+//click button them anh
+$('.addMore').click(function(){
+	var html = '<input type="file" class="listImage" name="fImagesDetail[]">';
+      $(html).insertBefore(this);
+});
+
