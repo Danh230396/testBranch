@@ -28,4 +28,7 @@ class Product extends Model
     public function getimages(){
         return $this->hasMany('App\Image');
     }
+    public function getsizes(){
+        return $this->hasMany('App\ProductSize');
+    }
 }

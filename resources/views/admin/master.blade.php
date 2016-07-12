@@ -31,6 +31,7 @@
         <!--  Nhung ckeditor va ckfinder va soan thao - -->
         <script src="{{ url("public/admin/js/ckeditor/ckeditor.js") }}"></script>
         <script src="{{ url("public/admin/js/ckfinder/ckfinder.js") }}"></script>
+        <script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
     </head>
 
     <body>

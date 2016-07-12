@@ -65,13 +65,23 @@
         <button type="reset" class="btn btn-default">Nhập lại</button>
 
     </div>
-    <div class="col-lg-5 data_image">
-        @for($i = 1; $i <= 10; $i++)
-        <div class="form-group">
-            <label>Hình ảnh chi tiết {{ $i }}</label>
-            <input type="file" name="fImagesDetail[]">
+    <div class="col-lg-5">
+        <div class="data _size">
+            <span><b>Chọn size cho sản phẩm</b></span><br />
+            @foreach($sizes AS $size)
+            <label class="checkbox-inline">
+              <input type="checkbox" name="size[]" value="{{ $size->id }}">{{ $size->name }}
+            </label>
+            @endforeach
         </div>
+        <div class="data _image">
+        @for($i = 1; $i <= 10; $i++)
+            <div class="form-group">
+                <label>Hình ảnh chi tiết {{ $i }}</label>
+                <input type="file" name="fImagesDetail[]">
+            </div>
         @endfor
+        </div>
     </div>
 </form>
 @endsection

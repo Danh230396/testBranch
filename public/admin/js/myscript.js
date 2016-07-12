@@ -26,3 +26,7 @@ $(document).ready(function(){
 		});
 	});
 });
+document.getElementById("file-2").onchange = function () {
+    document.getElementById("uploadFile").value = this.value;
+};
+

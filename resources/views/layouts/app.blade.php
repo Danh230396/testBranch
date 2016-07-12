@@ -25,8 +25,10 @@
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 			<script src="js/respond.min.js"></script>
 		<![endif]-->
+		
 	</head>
     <body>		
+    
 		<div id="top-bar" class="container">
 			<div class="row">
 				<div class="span4">

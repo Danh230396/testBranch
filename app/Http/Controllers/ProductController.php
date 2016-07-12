@@ -11,6 +11,8 @@ use App\Product;
 use App\Image;
 use File;
 use App\Helpers\SupportFunction;
+use App\Size;
+use App\ProductSize;
 
 class ProductController extends Controller
 {
@@ -18,7 +20,8 @@ class ProductController extends Controller
     #xuat form ra cho nguoi dung nhap du lieu
     function getAdd(){
         //$cate = Category::select('id', 'name', 'parent_id')->get()->toArray();
-        return view('admin.product.add');
+        $sizes = Size::select('id', 'name')->get();
+        return view('admin.product.add', compact('sizes'));
     }
     
     #Thuc hien qua trinh xu ly du lieu request tu form
@@ -65,6 +68,17 @@ class ProductController extends Controller
             }
             
         }
+
+        #thuc hien them size cho san pham
+        if($request->size){
+        	$sizes = $request->size;
+        	foreach ($sizes as $value) {
+        		$size = new ProductSize;
+        		$size->product_id = $product_id;
+        		$size->size_id = $value;
+        		$size->save(); 
+        	}
+        }
        return redirect()->route('getListProduct')->with(['flash_message' => 'Success!', 'flash_level' => 'success']);
     }
     
@@ -89,9 +103,15 @@ class ProductController extends Controller
     #function getEdit thuc hien show form cho user nhap data de update
     function getEdit($id){
         $product = Product::find($id);
+        $sizes = Size::select('id', 'name')->get();
         $productImages = Product::find($id)->getImages;
+        $aSize = Product::find($id)->getsizes->toArray();
+        $sizeProducts = array();
+        foreach ($aSize as $value) {
+        	$sizeProducts[] = $value['size_id'];
+        }
         // $cate = Category::select('id', 'name', 'parent_id')->get()->toArray();
-        return view('admin.product.edit',compact('product', 'productImages'));
+        return view('admin.product.edit',compact('product', 'productImages','sizes', 'sizeProducts'));
     }
 
     #function postEdit thu hien xu ly cac du lieu nhap vao cua tu Form
@@ -135,6 +155,18 @@ class ProductController extends Controller
             }
             
         }
+        #thuc hien them size cho san pham
+        $deletedRows = ProductSize::where('product_id', $id)->delete();
+        if($request->size){
+        	$sizes = $request->size;
+        	foreach ($sizes as $value) {
+        		$size = new ProductSize;
+        		$size->product_id = $id;
+        		$size->size_id = $value;
+        		$size->save(); 
+        	}
+        }
+
         return redirect()->route('getListProduct')->with(['flash_message' => 'Success!', 'flash_level' => 'success']);
     }
 
